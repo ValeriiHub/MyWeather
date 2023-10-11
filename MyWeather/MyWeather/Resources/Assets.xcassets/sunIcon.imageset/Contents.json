@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "free-icon-sunny-4064276.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "free-icon-sunny-4064276 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "free-icon-sunny-4064276 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
