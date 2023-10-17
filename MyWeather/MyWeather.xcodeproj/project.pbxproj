@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		384C83562ADF26F4005F678D /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384C83552ADF26F4005F678D /* Weather.swift */; };
 		3889E6742AD212C000FC95E9 /* MyWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889E6732AD212C000FC95E9 /* MyWeatherApp.swift */; };
 		3889E6762AD212C000FC95E9 /* PreloaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3889E6752AD212C000FC95E9 /* PreloaderView.swift */; };
 		3889E6782AD212C300FC95E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3889E6772AD212C300FC95E9 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		384C83552ADF26F4005F678D /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		3889E6702AD212C000FC95E9 /* MyWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3889E6732AD212C000FC95E9 /* MyWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWeatherApp.swift; sourceTree = "<group>"; };
 		3889E6752AD212C000FC95E9 /* PreloaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloaderView.swift; sourceTree = "<group>"; };
@@ -42,6 +44,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		384C83542ADF26E6005F678D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				384C83552ADF26F4005F678D /* Weather.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3889E6672AD212C000FC95E9 = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				3889E6732AD212C000FC95E9 /* MyWeatherApp.swift */,
+				384C83542ADF26E6005F678D /* Model */,
 				3889E6842AD21CCD00FC95E9 /* View and ViewModel */,
 				3889E6892AD2248400FC95E9 /* Settings */,
 				3889E68C2AD224CF00FC95E9 /* ReusableComponents */,
@@ -208,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				384C83562ADF26F4005F678D /* Weather.swift in Sources */,
 				3889E68B2AD2249200FC95E9 /* SettingsView.swift in Sources */,
 				3889E6762AD212C000FC95E9 /* PreloaderView.swift in Sources */,
 				3889E68E2AD2257B00FC95E9 /* SettingButton.swift in Sources */,
