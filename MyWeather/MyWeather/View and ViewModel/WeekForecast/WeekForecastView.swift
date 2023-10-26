@@ -24,6 +24,9 @@ struct WeekForecastView: View {
             // BACKGROUND
             Color.backgroundApp
                 .ignoresSafeArea()
+                .onAppear {
+                    weekForecastVM.fetchWeather()
+                }
             
             // MAIN CONTENT
             VStack(spacing: 0) {
@@ -88,8 +91,8 @@ extension WeekForecastView {
     private var forecast: some View {
         ScrollView(showsIndicators: false) {
             LazyVStack(spacing: 16) {
-                ForEach(0..<8, id: \.self) { index in
-                    ForecastRowView()
+                ForEach(weekForecastVM.weekForecaset, id: \.dt) { day in
+                    ForecastRowView(dayForecast: day)
                 }
             }
         }
@@ -99,7 +102,7 @@ extension WeekForecastView {
 
 //MARK: - Resources
 
-extension MainView {
+extension WeekForecastView {
     // text
     enum ViewText: String {
         case home = ""

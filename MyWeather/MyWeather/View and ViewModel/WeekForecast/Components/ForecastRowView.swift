@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct ForecastRowView: View {
+    
+    let dayForecast: DailyForecastVM
+    
     var body: some View {
         HStack(alignment: .bottom) {
             VStack(alignment: .leading, spacing: 0) {
-                Text("23°")
+                Text("\(dayForecast.temperature, specifier: "%.0f")°")
                     .font(.system(size: 86, weight: .bold))
                     .foregroundColor(.white)
                 
-                Text("Wednesday, 12 Sep")
+                Text(dayForecast.date)
                     .font(.system(size: 20))
                     .foregroundColor(.selectApp)
             }
@@ -27,7 +30,7 @@ struct ForecastRowView: View {
                     .resizable()
                     .frame(width: 80, height: 80)
                 
-                Text("H:23° M: 23°")
+                Text("H:\(dayForecast.maxTemp, specifier: "%.0f")° M: \(dayForecast.minTemp, specifier: "%.0f")°")
                     .font(.system(size: 18))
                     .foregroundColor(.white)
             }
