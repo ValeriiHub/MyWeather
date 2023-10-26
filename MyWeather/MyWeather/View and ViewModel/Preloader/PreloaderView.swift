@@ -14,7 +14,7 @@ struct PreloaderView: View {
     var body: some View {
         ZStack {
             // BACKGROUND
-            Color.backgroundColor
+            Color.backgroundApp
                .ignoresSafeArea()
 
             // MAIN CONTENT
@@ -26,7 +26,7 @@ struct PreloaderView: View {
                 
                 Text(ViewText.title.text)
                     .font(.system(size: 70, weight: .bold))
-                    .foregroundColor(.selectColor)
+                    .foregroundColor(.selectApp)
             }
         }
     }

@@ -24,7 +24,7 @@ struct AirQualityView: View {
                     .foregroundColor(.gray)
                 
                 Text(value)
-                    .foregroundColor(.selectColor)
+                    .foregroundColor(.selectApp)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

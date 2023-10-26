@@ -11,6 +11,8 @@ struct MainView: View {
     
     //MARK: - @Property Wrappers
     
+    @StateObject private var mainVM = MainViewModel()
+    
     @State private var isSettingsShow = false
     
     //MARK: - Properties
@@ -22,7 +24,7 @@ struct MainView: View {
     var body: some View {
         ZStack(alignment: .top) {
             // BACKGROUND
-            Color.backgroundColor
+            Color.backgroundApp
                 .ignoresSafeArea()
             
             // MAIN CONTENT
@@ -30,14 +32,14 @@ struct MainView: View {
                 // HEADER
                 header
                 
+                // SEARCH
+                search
+                
                 // WEATHER
                 weather
                 
                 // AIR QUALITY
                 airQuality
-                
-                // TODAY
-                today
             }
             .padding(.horizontal, 20)
             
@@ -67,7 +69,7 @@ extension MainView {
             } label: {
                 Image(systemName: "text.alignleft")
                     .font(.system(size: 24))
-                    .foregroundColor(.selectColor)
+                    .foregroundColor(.selectApp)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -86,11 +88,17 @@ extension MainView {
                     Text("Sunday, 12 Sep")
                         .font(.system(size: 12))
                 }
-                .foregroundColor(.selectColor)
+                .foregroundColor(.selectApp)
                 .padding(.trailing, 28)
             }
         }
         .frame(height: 48)
+    }
+    
+    // SEARCH
+    private var search: some View {
+        SearchView(text: $mainVM.searchCity)
+            .padding(.vertical, 12)
     }
     
     // WEATHER
@@ -104,7 +112,7 @@ extension MainView {
                 
                 Text("Clouds")
                     .font(.system(size: 22, weight: .bold))
-                    .foregroundColor(.selectColor)
+                    .foregroundColor(.selectApp)
             }
             
             // WEATHER DATA
@@ -121,10 +129,10 @@ extension MainView {
                     Label("37%", systemImage: "drop")
                 }
                 .font(.system(size: 20))
-                .foregroundColor(.selectColor)
+                .foregroundColor(.selectApp)
             }
         }
-        .padding(.top, 24)
+        .padding(.top, 12)
     }
     
     // AIR QUALITY
@@ -136,58 +144,40 @@ extension MainView {
                     .font(.system(size: 30, weight: .bold))
                 
                 Text("Air Quality")
-                    .foregroundColor(.selectColor)
+                    .foregroundColor(.selectApp)
                     .font(.system(size: 24, weight: .semibold))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 12)
 
             HStack {
-                AirQualityView(image: "cloud.sun", title: "Real feel", value: "22.8")
+                AirQualityView(image: "cloud.sun", title: "Max", value: "22.8")
 
-                AirQualityView(image: "cloud", title: "Real feel", value: "22.8")
+                AirQualityView(image: "cloud", title: "Min", value: "22.8")
             }
             
             HStack {
-                AirQualityView(image: "cloud.sun.rain", title: "Real feel", value: "22.8")
+                AirQualityView(image: "cloud.sun.rain", title: "Pressure", value: "22.8")
 
-                AirQualityView(image: "cloud", title: "Real feel", value: "22.8")
+                AirQualityView(image: "cloud", title: "Humidity", value: "22.8")
             }
             
             HStack {
-                AirQualityView(image: "wind", title: "Wind", value: "8km/h")
+                AirQualityView(image: "sunrise.fill", title: "Sunrise", value: "8km/h")
 
-                AirQualityView(image: "cloud", title: "Real feel", value: "22.8")
+                AirQualityView(image: "sunset.fill", title: "Sunset", value: "22.8")
             }
         }
         .padding(.horizontal, 28)
         .frame(height: 220)
         .frame(maxWidth: .infinity)
-        .background(Color.blueColor)
+        .background(Color.blueApp)
         .cornerRadius(20)
         .shadow(color: .black.opacity(0.2), radius: 10)
         .padding(.top, 24)
     }
     
-    // TODAY
-    private var today: some View {
-        VStack {
-            Text("Today")
-                .foregroundColor(.selectColor)
-                .font(.system(size: 24, weight: .semibold))
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 6) {
-                    ForEach(1...10, id: \.self) { count in
-                        /*@START_MENU_TOKEN@*/Text("Placeholder \(count)")/*@END_MENU_TOKEN@*/
-                    }
-                }
-            }
-            .frame(height: 100)
-        }
-        .padding(.top, 24)
-    }
+    
     
     // SETTINGS
     private var settings: some View {
@@ -207,26 +197,3 @@ extension MainView {
         .animation(.easeInOut, value: isSettingsShow)
     }
 }
-
-//MARK: - Resources
-
-extension MainView {
-    // text
-    enum ViewText: String {
-        case home = ""
-        
-        var text: String {
-            rawValue
-        }
-    }
-    
-    // image name
-    enum ViewImage: String {
-        case backgrounImage
-        
-        var image: String {
-            rawValue
-        }
-    }
-}
-
