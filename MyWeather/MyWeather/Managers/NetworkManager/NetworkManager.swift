@@ -47,7 +47,7 @@ class NetworkManager <Target: TargetType> {
             completion(Result.failure(APIError.badURL))
             return
         }
-        
+        print(request.url!)
         // URLSession
         URLSession.shared.dataTask(with: request) { data, response, error in
             

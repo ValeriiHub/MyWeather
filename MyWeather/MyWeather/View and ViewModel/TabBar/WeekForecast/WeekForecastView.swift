@@ -22,7 +22,7 @@ struct WeekForecastView: View {
     var body: some View {
         ZStack(alignment: .top) {
             // BACKGROUND
-            Color.backgroundApp
+            Color.backgroundColor
                 .ignoresSafeArea()
                 .onAppear {
                     weekForecastVM.fetchWeather()
@@ -36,15 +36,17 @@ struct WeekForecastView: View {
                 // WEATHER
                 forecast
             }
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 20)
         }
     }
 }
 
 //MARK: - Preview
 
-#Preview {
-    WeekForecastView()
+struct WeekForecastView_Previews: PreviewProvider {
+    static var previews: some View {
+        WeekForecastView()
+    }
 }
 
 //MARK: - Extension
@@ -61,7 +63,7 @@ extension WeekForecastView {
             } label: {
                 Image(systemName: "text.alignleft")
                     .font(.system(size: 24))
-                    .foregroundColor(.selectApp)
+                    .foregroundColor(.selectColor)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -80,7 +82,7 @@ extension WeekForecastView {
                     Text("Sunday, 12 Sep")
                         .font(.system(size: 12))
                 }
-                .foregroundColor(.selectApp)
+                .foregroundColor(.selectColor)
                 .padding(.trailing, 28)
             }
         }

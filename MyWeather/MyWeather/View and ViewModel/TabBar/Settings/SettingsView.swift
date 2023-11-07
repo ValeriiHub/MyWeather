@@ -18,7 +18,7 @@ struct SettingsView: View {
     var body: some View {
         ZStack {
             // BACKGROUND
-            Color.backgroundApp
+            Color.backgroundColor
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
@@ -37,8 +37,10 @@ struct SettingsView: View {
 
 //MARK: - Preview
 
-#Preview {
-    SettingsView(isSettingsShow: .constant(false))
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView(isSettingsShow: .constant(false))
+    }
 }
 
 extension SettingsView {
@@ -53,7 +55,7 @@ extension SettingsView {
             } label: {
                 Image(systemName: ViewImage.arrowLeft.image)
                     .font(.system(size: 24))
-                    .foregroundColor(.selectApp)
+                    .foregroundColor(.selectColor)
             }
             
             // TITLE

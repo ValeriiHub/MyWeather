@@ -24,8 +24,11 @@ struct MainView: View {
     var body: some View {
         ZStack(alignment: .top) {
             // BACKGROUND
-            Color.backgroundApp
+            Color.backgroundColor
                 .ignoresSafeArea()
+                .onAppear {
+                    mainVM.fetchWeather()
+                }
             
             // MAIN CONTENT
             VStack(spacing: 0) {
@@ -51,8 +54,10 @@ struct MainView: View {
 
 //MARK: - Preview
 
-#Preview {
-    MainView()
+struct MainView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainView()
+    }
 }
 
 //MARK: - Extension
@@ -69,7 +74,7 @@ extension MainView {
             } label: {
                 Image(systemName: "text.alignleft")
                     .font(.system(size: 24))
-                    .foregroundColor(.selectApp)
+                    .foregroundColor(.selectColor)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -88,7 +93,7 @@ extension MainView {
                     Text("Sunday, 12 Sep")
                         .font(.system(size: 12))
                 }
-                .foregroundColor(.selectApp)
+                .foregroundColor(.selectColor)
                 .padding(.trailing, 28)
             }
         }
@@ -110,15 +115,15 @@ extension MainView {
                     .resizable()
                     .frame(width: 180, height: 180)
                 
-                Text("Clouds")
+                Text(String(mainVM.forecaset?.current.condition.text ?? "-"))
                     .font(.system(size: 22, weight: .bold))
-                    .foregroundColor(.selectApp)
+                    .foregroundColor(.selectColor)
             }
             
             // WEATHER DATA
             VStack(alignment: .leading, spacing: 8) {
-                Text("23°")
-                    .font(.system(size: 60, weight: .bold))
+                Text(String(mainVM.forecaset?.current.tempC ?? 100) + "°")
+                    .font(.system(size: 56, weight: .bold))
                     .foregroundColor(.white)
                 
                 Group {
@@ -129,7 +134,7 @@ extension MainView {
                     Label("37%", systemImage: "drop")
                 }
                 .font(.system(size: 20))
-                .foregroundColor(.selectApp)
+                .foregroundColor(.selectColor)
             }
         }
         .padding(.top, 12)
@@ -144,7 +149,7 @@ extension MainView {
                     .font(.system(size: 30, weight: .bold))
                 
                 Text("Air Quality")
-                    .foregroundColor(.selectApp)
+                    .foregroundColor(.selectColor)
                     .font(.system(size: 24, weight: .semibold))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -171,7 +176,7 @@ extension MainView {
         .padding(.horizontal, 28)
         .frame(height: 220)
         .frame(maxWidth: .infinity)
-        .background(Color.blueApp)
+        .background(Color.blueColor)
         .cornerRadius(20)
         .shadow(color: .black.opacity(0.2), radius: 10)
         .padding(.top, 24)

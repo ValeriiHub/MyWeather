@@ -24,13 +24,15 @@ struct AirQualityView: View {
                     .foregroundColor(.gray)
                 
                 Text(value)
-                    .foregroundColor(.selectApp)
+                    .foregroundColor(.selectColor)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
-#Preview {
-    AirQualityView(image: "wind", title: "Real feel", value: "22.8")
+struct AirQualityView_Previews: PreviewProvider {
+    static var previews: some View {
+        AirQualityView(image: "wind", title: "Real feel", value: "22.8")
+    }
 }

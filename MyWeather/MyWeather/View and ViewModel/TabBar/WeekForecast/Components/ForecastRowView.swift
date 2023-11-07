@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ForecastRowView: View {
     
-    let dayForecast: DailyForecastVM
+    let dayForecast: WeekForecastVM
     
     var body: some View {
         HStack(alignment: .bottom) {
@@ -20,7 +20,7 @@ struct ForecastRowView: View {
                 
                 Text(dayForecast.date)
                     .font(.system(size: 20))
-                    .foregroundColor(.selectApp)
+                    .foregroundColor(.selectColor)
             }
             
             Spacer()

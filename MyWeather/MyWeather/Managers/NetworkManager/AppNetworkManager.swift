@@ -13,11 +13,15 @@ class AppNetworkManager {
 
     //MARK: - Functions
 
-    func fetchWeather(lat: String, lon: String, completion: @escaping (Result<Forecast, APIError>) -> ()) {
-        networkManager.fetchData(Forecast.self, servise: .week(lat: lat, lon: lon), completion: completion)
+    func fetchWeekWeather(lat: String, lon: String, completion: @escaping (Result<WeatherForecast, APIError>) -> ()) {
+        networkManager.fetchData(WeatherForecast.self, servise: .week(lat: lat, lon: lon), completion: completion)
     }
     
-//    func fetchTeams(leagueID: String, completion: @escaping (Result<Match, APIError>) -> ()) {
-//        networkManager.fetchData(Match.self, servise: .teams(leagueID: leagueID), completion: completion)
-//    }
+    func fetchDayWeather(city: String, completion: @escaping (Result<DayForecast, APIError>) -> ()) {
+        networkManager.fetchData(DayForecast.self, servise: .day(city: city), completion: completion)
+    }
+    
+    func fetchWeather(city: String, completion: @escaping (Result<Forecast, APIError>) -> ()) {
+        networkManager.fetchData(Forecast.self, servise: .weather(city: city), completion: completion)
+    }
 }

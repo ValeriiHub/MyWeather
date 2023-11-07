@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct MyWeatherApp: App {
+    
+    @StateObject private var routerState = RouterState()
+    
     var body: some Scene {
         WindowGroup {
-            WeekForecastView()
+            AppRouterView()
+                .environmentObject(routerState)
         }
     }
 }

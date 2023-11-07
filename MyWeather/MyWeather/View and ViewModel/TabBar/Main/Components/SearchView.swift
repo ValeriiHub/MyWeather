@@ -18,14 +18,16 @@ struct SearchView: View {
             TextField( "Search for a city", text: $text)
         }
         .font(.system(size: 20))
-        .foregroundColor(.grayApp)
+        .foregroundColor(.grayColor)
         .padding(.horizontal, 8)
         .frame(height: 50)
-        .background(Color.blueApp)
+        .background(Color.blueColor)
         .cornerRadius(30)
     }
 }
 
-#Preview {
-    SearchView(text: .constant(""))
+struct SearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchView(text: .constant(""))
+    }
 }

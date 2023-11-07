@@ -11,7 +11,7 @@ final class WeekForecastViewModel: ObservableObject {
     
     //MARK: - @Property Wrappers
     
-    @Published var weekForecaset: [DailyForecast] = []
+    @Published var weekForecaset: [WeekForecast] = []
     @Published var searchCity = ""
     @Published var latitude = "50.474822734351555"
     @Published var longitude = "30.39981187344749"
@@ -30,7 +30,7 @@ final class WeekForecastViewModel: ObservableObject {
     func fetchWeather() {
         self.dataState = .loadingData
         
-        networkManager.fetchWeather(lat: latitude, lon: longitude) { [weak self] result in
+        networkManager.fetchWeekWeather(lat: latitude, lon: longitude) { [weak self] result in
             guard let self else { return }
             
             DispatchQueue.main.async {
@@ -46,4 +46,3 @@ final class WeekForecastViewModel: ObservableObject {
         }
     }
 }
-

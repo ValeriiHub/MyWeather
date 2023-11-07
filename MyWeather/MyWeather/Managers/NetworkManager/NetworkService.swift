@@ -7,6 +7,8 @@
 
 import Foundation
 
+// TargetType
+
 protocol TargetType {
     var baseURL: String { get }
     var path: String { get }
@@ -14,17 +16,29 @@ protocol TargetType {
     var headers: [String : String]? { get }
 }
 
+// Task
+
 public enum Task {
     case requestPlain
     case requestParameters(parameters: [String : String])
 }
 
+// NetworkService
+
 enum NetworkService: TargetType {
     case day(city: String)
     case week(lat: String, lon: String)
+    case weather(city: String)
     
     var baseURL: String {
-        return "api.openweathermap.org"
+        
+        switch self {
+            
+        case .day, .week:
+            return "api.openweathermap.org"
+        case .weather:
+            return "api.weatherapi.com"
+        }
     }
     
     var path: String {
@@ -33,6 +47,8 @@ enum NetworkService: TargetType {
             return "/data/2.5/weather"
         case .week:
             return "/data/2.5/onecall"
+        case .weather:
+            return "/v1/forecast.json"
         }
     }
     
@@ -45,9 +61,14 @@ enum NetworkService: TargetType {
         case .week(let lat, let lon):
             return .requestParameters(parameters: ["lat" : lat,
                                                    "lon" : lon,
-                                                   "appid" : "d06df6ec81b99ec21bf29b8a251e6b08",
                                                    "exclude" : "current,minutely,hourly,alerts",
+                                                   "appid" : "d06df6ec81b99ec21bf29b8a251e6b08",
                                                    "units" : "metric"])
+        case .weather(let city):
+            return .requestParameters(parameters: ["q" : city,
+                                                   "days" : "7",
+                                                   "key" : "688726d481e44856acf151347230411",
+                                                   "aqi" : "yes"])
         }
     }
     
@@ -55,6 +76,8 @@ enum NetworkService: TargetType {
         return nil
     }
 }
+
+// APIError
 
 enum APIError: Error {
     case badURL

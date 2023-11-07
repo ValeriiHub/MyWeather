@@ -24,7 +24,7 @@ struct SettingButton: View {
                 
                 Text(title)
                     .font(.system(size: 22, weight: .semibold))
-                    .foregroundColor(.selectApp)
+                    .foregroundColor(.selectColor)
                     .frame(height: 40)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -32,7 +32,9 @@ struct SettingButton: View {
     }
 }
 
-#Preview {
-    SettingButton(icon: "gear", title: "Settings") {}
-        .background(Color.backgroundApp)
+struct SettingButton_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingButton(icon: "gear", title: "Settings") {}
+            .background(Color.backgroundColor)
+    }
 }
