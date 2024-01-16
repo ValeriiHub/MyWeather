@@ -18,6 +18,7 @@ struct AirQualityView: View {
             Image(systemName: image)
                 .foregroundColor(.white)
                 .font(.system(size: 20))
+                .frame(width: 20)
             
             VStack(alignment: .leading) {
                 Text(title)

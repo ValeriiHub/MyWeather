@@ -47,7 +47,7 @@ struct TabBarView: View {
                 case .main:
                     MainView()
                 case .saved:
-                    EmptyView()
+                    SavedCitiesView()
                 }
                 
                 // TABBAR

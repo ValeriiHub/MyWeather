@@ -21,7 +21,7 @@ class AppNetworkManager {
         networkManager.fetchData(DayForecast.self, servise: .day(city: city), completion: completion)
     }
     
-    func fetchWeather(city: String, completion: @escaping (Result<Forecast, APIError>) -> ()) {
-        networkManager.fetchData(Forecast.self, servise: .weather(city: city), completion: completion)
-    }
+//    func fetchWeather(city: String, completion: @escaping (Result<Forecast, APIError>) -> ()) {
+//        networkManager.fetchData(Forecast.self, servise: .weather(city: city), completion: completion)
+//    }
 }

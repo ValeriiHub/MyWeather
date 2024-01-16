@@ -38,16 +38,17 @@ struct MainView: View {
                 // SEARCH
                 search
                 
-                // WEATHER
-                weather
-                
-                // AIR QUALITY
-                airQuality
+                ScrollView(showsIndicators: false) {
+                    // WEATHER
+                    weather
+                    
+                    // STATISTICS
+                    statistics
+                    
+                    // WIND
+                    wind
+                }
             }
-            .padding(.horizontal, 20)
-            
-            // SETTINGS
-            settings
         }
     }
 }
@@ -67,43 +68,33 @@ extension MainView {
     
     // HEADER
     private var header: some View {
-        ZStack {
-            // SETTINGS BUTTON
-            Button {
-                isSettingsShow.toggle()
-            } label: {
-                Image(systemName: "text.alignleft")
-                    .font(.system(size: 24))
-                    .foregroundColor(.selectColor)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
+        HStack(spacing: 8) {
+            // IMAGE
+            Image(systemName: "location.circle")
+                .font(.system(size: 20))
             
-            // HEADER
-            HStack(spacing: 8) {
-                // IMAGE
-                Image(systemName: "location.circle")
-                    .font(.system(size: 20))
+            VStack(spacing: 4) {
+                // CITY
+                Text(mainVM.dayForecaset?.cityName ?? "-")
+                    .font(.system(size: 22, weight: .bold))
                 
-                VStack(spacing: 4) {
-                    // CITY
-                    Text("Denmark")
-                        .font(.system(size: 22, weight: .bold))
-                    
-                    // DATE
-                    Text("Sunday, 12 Sep")
-                        .font(.system(size: 12))
-                }
-                .foregroundColor(.selectColor)
-                .padding(.trailing, 28)
+                // DATE
+                Text(mainVM.dayForecaset?.date ?? "-")
+                    .font(.system(size: 12))
             }
+            .foregroundColor(.selectColor)
+            .padding(.trailing, 28)
         }
         .frame(height: 48)
+        .padding(.horizontal, 20)
     }
     
     // SEARCH
     private var search: some View {
         SearchView(text: $mainVM.searchCity)
-            .padding(.vertical, 12)
+            .padding(.top, 12)
+            .padding(.horizontal, 20)
+            .shadow(color: .black.opacity(0.1), radius: 10)
     }
     
     // WEATHER
@@ -115,34 +106,35 @@ extension MainView {
                     .resizable()
                     .frame(width: 180, height: 180)
                 
-                Text(String(mainVM.forecaset?.current.condition.text ?? "-"))
+                Text(String(mainVM.dayForecaset?.description ?? "-"))
                     .font(.system(size: 22, weight: .bold))
                     .foregroundColor(.selectColor)
             }
             
             // WEATHER DATA
             VStack(alignment: .leading, spacing: 8) {
-                Text(String(mainVM.forecaset?.current.tempC ?? 100) + "°")
-                    .font(.system(size: 56, weight: .bold))
+                Text(String(mainVM.dayForecaset?.temperature ?? 0) + "°")
+                    .font(.system(size: 54, weight: .bold))
                     .foregroundColor(.white)
                 
                 Group {
-                    Text("Feels like 26°")
+                    Text("Feels like \(mainVM.dayForecaset?.temperature ?? 0)°")
                     
-                    Label("8 km/h", systemImage: "wind")
+                    Label(String(mainVM.dayForecaset?.windSpeed ?? 0) + " m/sec", systemImage: "wind")
                     
-                    Label("37%", systemImage: "drop")
+                    Label("\(mainVM.dayForecaset?.humidity ?? 0)%", systemImage: "drop")
                 }
                 .font(.system(size: 20))
                 .foregroundColor(.selectColor)
             }
         }
         .padding(.top, 12)
+        .padding(.horizontal, 20)
     }
     
-    // AIR QUALITY
-    private var airQuality: some View {
-        VStack {
+    // STATISTICS
+    private var statistics: some View {
+        VStack(spacing: 12) {
             HStack {
                 Image(systemName: "cloud")
                     .foregroundColor(.white)
@@ -153,52 +145,73 @@ extension MainView {
                     .font(.system(size: 24, weight: .semibold))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.bottom, 12)
-
+            
             HStack {
-                AirQualityView(image: "cloud.sun", title: "Max", value: "22.8")
-
-                AirQualityView(image: "cloud", title: "Min", value: "22.8")
+                AirQualityView(image: "thermometer.low", title: "Max",
+                               value: String(mainVM.dayForecaset?.maxTemp ?? 0) + "°")
+                
+                AirQualityView(image: "thermometer.high", title: "Min",
+                               value: String(mainVM.dayForecaset?.minTemp ?? 0) + "°")
             }
             
             HStack {
-                AirQualityView(image: "cloud.sun.rain", title: "Pressure", value: "22.8")
-
-                AirQualityView(image: "cloud", title: "Humidity", value: "22.8")
+                AirQualityView(image: "cloud.sun.rain", title: "Pressure",
+                               value: String(mainVM.dayForecaset?.pressure ?? 0) + " hPa")
+                
+                AirQualityView(image: "cloud", title: "Cloudiness",
+                               value: String(mainVM.dayForecaset?.cloudiness ?? 0) + " %")
             }
             
             HStack {
-                AirQualityView(image: "sunrise.fill", title: "Sunrise", value: "8km/h")
-
-                AirQualityView(image: "sunset.fill", title: "Sunset", value: "22.8")
+                AirQualityView(image: "sunrise.fill", title: "Sunrise",
+                               value: (mainVM.dayForecaset?.sunrise ?? 0).convertDoubleToString(format: .time))
+                
+                AirQualityView(image: "sunset.fill", title: "Sunset",
+                               value: (mainVM.dayForecaset?.sunset ?? 0).convertDoubleToString(format: .time))
             }
         }
         .padding(.horizontal, 28)
-        .frame(height: 220)
+        .padding(.vertical, 20)
         .frame(maxWidth: .infinity)
         .background(Color.blueColor)
         .cornerRadius(20)
-        .shadow(color: .black.opacity(0.2), radius: 10)
+        .shadow(color: .black.opacity(0.1), radius: 10)
         .padding(.top, 24)
+        .padding(.horizontal, 20)
     }
     
-    
-    
-    // SETTINGS
-    private var settings: some View {
-        ZStack {
-            if isSettingsShow {
-                // BACKGROUND
-                Color.black
-                    .opacity(0.5)
-                    .ignoresSafeArea()
+    // WIND
+    private var wind: some View {
+        VStack(spacing: 12) {
+            HStack {
+                Image(systemName: "wind")
+                    .foregroundColor(.white)
+                    .font(.system(size: 30, weight: .bold))
                 
-                // MENU
-                SettingsView(isSettingsShow: $isSettingsShow)
-                    .padding(.trailing, 120)
-                    .transition(.move(edge: .leading))
+                Text("Wind")
+                    .foregroundColor(.selectColor)
+                    .font(.system(size: 24, weight: .semibold))
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            HStack {
+                AirQualityView(image: "speedometer", title: "Speed",
+                               value: String(mainVM.dayForecaset?.windSpeed ?? 0) + " m/sec")
+                
+                AirQualityView(image: "safari", title: "Direction",
+                               value: String(mainVM.dayForecaset?.windDirection ?? 0) + "°")
+            }
+            
+            AirQualityView(image: "wind.circle", title: "Gust",
+                           value: String(mainVM.dayForecaset?.windGust ?? 0) + " m/sec")
         }
-        .animation(.easeInOut, value: isSettingsShow)
+        .padding(.horizontal, 28)
+        .padding(.vertical, 20)
+        .frame(maxWidth: .infinity)
+        .background(Color.blueColor)
+        .cornerRadius(20)
+        .shadow(color: .black.opacity(0.1), radius: 10)
+        .padding(.top, 8)
+        .padding(.horizontal, 20)
     }
 }
